@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .atext {
+            color: black;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        body{
+            background: url("../../../../../images/4.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+        }
+    </style>
+    <title>查询结果</title>
+</head>
+<body>
+<table>
+    <!--可以做一个顶部栏，显示该系统的相关信息 -->
+    <div class="container">
+        <div class="row">
+            <div class="navbar navbar-default">
+                <div style="margin: 0 auto; text-align: center; line-height: 100px">
+                    <a href="#" style="font-size: 50px; color: red">教务系统(管理员)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--页面主体 -->
+    <div class="container" id="content">
+        <!--可以做一个侧边栏 导航至各个功能组件 -->
+        <div class="row">
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <!--                    功能栏-->
+                    <div class="panel-heading">
+                        <div class="row">
+                            <a class="btn btn-primary atext" th:href="@{/admin}">返回主界面</a>
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <a class="btn btn-primary atext" th:href="@{/admin/course/to/add}">添加课程信息</a>
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <a class="btn btn-primary atext" th:href="@{/admin/course/to/select}">查询课程信息</a>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                    <!--列表主体 -->
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>课程号</th>
+                            <th>课程名</th>
+                            <th>先修课</th>
+                            <th>学分</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="course: ${page.list}">
+                            <td th:text="${course.Cno}"></td>
+                            <td th:text="${course.Cname}"></td>
+                            <td th:text="${course.Cpno}"></td>
+                            <td th:text="${course.Ccredit}"></td>
+                            <td>
+                                <a th:href="@{'/admin/course/update/'+${course.Cno}}">修改</a>
+                                <a th:href="@{'/admin/course/delete/'+${course.Cno}}">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--        分页导航栏-->
+                    <div class="panel-footer">
+                        <nav style="text-align: center">
+                            <ul class="pagination">
+                                <li><a th:if="${page.hasPreviousPage}" th:href="@{/admin/course/select/page/1}">首页</a>
+                                </li>
+                                <li><a th:if="${page.hasPreviousPage}"
+                                       th:href="@{'/admin/course/select/page/'+${page.prePage}}">上一页</a></li>
+                                <li th:each="num: ${page.navigatepageNums}">
+                                    <a th:if="${page.pageNum == num}" style="color: red"
+                                       th:href="@{'/admin/course/select/page/'+${num}}" th:text="${num}"></a>
+                                    <a th:if="${page.pageNum != num}" th:href="@{'/admin/course/select/page/'+${num}}"
+                                       th:text="${num}"></a>
+                                </li>
+                                <li><a th:if="${page.hasNextPage}"
+                                       th:href="@{'/admin/course/select/page/'+${page.nextPage}}">下一页</a></li>
+                                <li><a th:if="${page.hasNextPage}"
+                                       th:href="@{'/admin/course/select/page/'+${page.pages}}">末页</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--相关操作的列表：增删改-->
+    </div>
+
+</table>
+</body>
+</html>

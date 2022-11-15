@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body{
+            background: url("../../images/4.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+        }
+        .atext {
+            color: black;
+            font-weight: bolder;
+            font-size: larger;
+        }
+    </style>
+    <title>教师信息</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="navbar navbar-default" style="margin-left: 90px">
+            <div style="margin: 0 auto; text-align: center; line-height: 100px">
+                <a href="#" style="font-size: 50px; color: red">教务系统(教师)</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="content">
+    <!--可以做一个侧边栏 导航至各个功能组件 -->
+    <div class="row">
+        <div class="col-md-10" style="margin-left: 90px">
+            <div class="panel panel-default">
+                <!--                    功能栏-->
+                <div class="panel-heading">
+                    <div class="row" style="display: flex;">
+                        <a class="btn btn-primary atext" th:href="@{'/' }" >退出登录</a>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </div>
+            </div>
+            <!--列表主体 -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>工号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>院系</th>
+                    <th>薪水</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${teacher.Tno}"></td>
+                    <td th:text="${teacher.Tname}"></td>
+                    <td th:text="${teacher.Tsex}"></td>
+                    <td th:text="${teacher.Tage}"></td>
+                    <td th:text="${teacher.Tdept}"></td>
+                    <td th:text="${teacher.Tsalary}"></td>
+                    <td>
+                        <a th:href="@{'/teacher/gotoupdate/'+${teacher.Tno}}">修改密码</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>课程号</th>
+                    <th>课程名</th>
+                    <th>学分</th>
+                    <th>先修课</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tc_course: ${tc_course_list}">
+                    <td th:text="${tc_course.Tno}"></td>
+                    <td th:text="${tc_course.Cname}"></td>
+                    <td th:text="${tc_course.Ccredit}"></td>
+                    <td th:text="${tc_course.Cpno}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--相关操作的列表：增删改-->
+
+</body>
+</html>
